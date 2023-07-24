@@ -416,6 +416,8 @@ export const scrapeAnimeDetails = async ({ id }) => {
   const animeTitle = $('div.anime_info_body_bg > h1').text();
   const animeImage = $('div.anime_info_body_bg > img').attr('src');
   const type = $('div.anime_info_body_bg > p:nth-child(4) > a').text();
+
+
   const desc = $('div.anime_info_body_bg > p:nth-child(5)')
    .text()
    .replace('Plot Summary: ', '');
@@ -443,10 +445,13 @@ export const scrapeAnimeDetails = async ({ id }) => {
   const $$ = cheerio.load(html.data);
 
   $$('#episode_related > li').each((i, el) => {
+    let episodeLocale = $(el).find(`div.cate`).text().toLowerCase() ;
    epList.push({
     episodeId: $(el).find('a').attr('href').split('/')[1],
     episodeNum: $(el).find(`div.name`).text().replace('EP ', ''),
     episodeUrl: BASE_URL + $(el).find(`a`).attr('href').trim(),
+    isSubbed:  episodeLocale == "sub",
+    isDubbed:  episodeLocale == "dub",
    });
   });
 
