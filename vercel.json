@@ -1,7 +1,7 @@
 {
-    "version": 2,
-    "builds": [
-        {
+ "version": 2.0,
+ "builds": [
+  {
             "src": "/src/api.js",
             "use": "@vercel/node"
         }
